@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2014 at 02:07 PM
--- Server version: 5.6.14
--- PHP Version: 5.5.6
+-- Generation Time: Jan 08, 2014 at 05:12 PM
+-- Server version: 5.5.34
+-- PHP Version: 5.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS `activities` (
   `protocol_id` mediumint(9) DEFAULT NULL,
   `exercise_id` mediumint(9) DEFAULT NULL,
   `date_time` datetime NOT NULL,
-  `left_calc` int(11) DEFAULT NULL,
-  `right_calc` int(11) DEFAULT NULL,
+  `foot` tinyint(1) DEFAULT NULL,
+  `calc_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=549 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=549 ;
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `authlock` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `authlock_log` (
   `user_id` mediumint(9) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `coefficients` (
   `mz_offset` float DEFAULT NULL,
   `mz_sensitivity` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -192,17 +192,17 @@ CREATE TABLE IF NOT EXISTS `coefficients` (
 
 CREATE TABLE IF NOT EXISTS `exercises` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `type` char(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '1 = gait, 2 = force, 3 = rom',
-  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `type` char(10) COLLATE utf8_bin NOT NULL COMMENT '1 = gait, 2 = force, 3 = rom',
+  `description` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `start_degrees` int(11) DEFAULT NULL,
   `direction` tinyint(1) DEFAULT NULL COMMENT '0 = anti-clockwise, 1 =clockwise',
-  `joint` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `joint` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `isometric` tinyint(1) DEFAULT NULL COMMENT '0 = false, 1 = true',
   `primary_dashboard` int(11) DEFAULT NULL,
   `secondary_dashboard` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=130 ;
 
 --
 -- Dumping data for table `exercises`
@@ -219,8 +219,8 @@ INSERT INTO `exercises` (`id`, `type`, `description`, `name`, `start_degrees`, `
 (8, '1', 'Walk a quarter of a mile.', 'Walk - 30 Minutes', 90, 0, NULL, 0, 3, 0),
 (9, '1', 'Walk a half of a mile.', 'Walk - 45 Minutes', 90, 0, NULL, 0, 3, 0),
 (10, '1', 'Walk a mile.', 'Walk - 1 Hour', 90, 1, NULL, 0, 3, 0),
-(16, '3', 'Balance on one foot, then rise on ball of foot.', 'Heel Raise (Unilateral, Standing) ', 0, 1, 'A', 0, 2, 1),
 (15, '3', 'Rise on balls of feet.', 'Heel Raise (Bilateral, Standing)', 0, 1, 'A', 0, 2, 1),
+(16, '3', 'Balance on one foot, then rise on ball of foot.', 'Heel Raise (Unilateral, Standing) ', 0, 1, 'A', 0, 2, 1),
 (17, '3', 'Rock back on heels', 'Toe Raise (Standing) ', 180, 0, 'A', 0, 2, 1),
 (18, '3', 'Sitting with one leg over edge of table or bed and a weight around foot, flex ankle, moving toes toward knee.', 'Dorsiflexion', 180, 0, 'A', 0, 2, 0),
 (19, '3', 'Lying on stomach with one knee bent and a weight around foot, point foot toward ceiling.', 'Plantar Flexion (Knee Flexed, Prone) ', 180, 0, 'A', 0, 2, 0),
@@ -294,10 +294,10 @@ INSERT INTO `exercises` (`id`, `type`, `description`, `name`, `start_degrees`, `
 (87, '3', 'Using both legs "walk" forward down a long hallway.', 'Forward Stool Walk ', 0, 1, 'AK', 0, 1, 0),
 (88, '3', 'Using both legs "walk" backward down a long hallway.', 'Retro Stool Walk ', 0, 1, 'AK', 0, 1, 0),
 (89, '3', 'Using both legs "walk" sideways using side steps down a long hallway.', 'Sideways Stool Walk ', 0, 1, 'AK', 0, 1, 0),
-(93, '3', 'With rolled pillow against wall, press outer border of foot into pillow.  Hold _____ seconds. Relax.', 'Isometric Eversion', 270, 1, 'AHK', 1, 1, 2),
+(90, '3', 'With rolled pillow against wall, press foot into pillow. Hold for prescribed seconds. Relax.', 'Isometric Plantar Flexion', 270, 1, 'AHK', 1, 1, 2),
 (91, '3', 'With rolled pillow between feet, press inner borders of feet into pillow.  Hold for _____ seconds.  Relax', 'Isometric Inversion', 270, 1, 'AHK', 1, 1, 2),
 (92, '3', 'With rolled pillow between feet, squeeze feet together.  Hold _____ seconds. Relax.', 'Isometric Dorsiflexion', 270, 1, 'AHK', 1, 1, 2),
-(90, '3', 'With rolled pillow against wall, press foot into pillow. Hold for prescribed seconds. Relax.', 'Isometric Plantar Flexion', 270, 1, 'AHK', 1, 1, 2),
+(93, '3', 'With rolled pillow against wall, press outer border of foot into pillow.  Hold _____ seconds. Relax.', 'Isometric Eversion', 270, 1, 'AHK', 1, 1, 2),
 (94, '3', 'With foot turned outward, tighten muscles on back of thigh by pulling heel downward into surface.  Hold _____ seconds.', 'Strengthening: External Hamstring', 270, 1, 'AHK', 1, 1, 2),
 (95, '3', 'With foot turned inward, tighten muscles on back of thigh by pulling heel downward into surface.  Hold _____ seconds.', 'Strengthening: Internal Hamstring', 0, 0, 'AHK', 1, 1, 2),
 (96, '3', 'With folded pillow between knees, squeeze knees together.  Hold _____ seconds.', 'Strengthening: Isometric Hip Adduction', 270, 0, 'AHK', 1, 1, 2),
@@ -369,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `extended_dates` (
   `extended_to` date NOT NULL,
   `extended_when` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=56 ;
 
 -- --------------------------------------------------------
 
@@ -390,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `forcecalculations` (
   `force3` double DEFAULT NULL,
   `force4` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=112 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=112 ;
 
 -- --------------------------------------------------------
 
@@ -406,15 +406,15 @@ CREATE TABLE IF NOT EXISTS `forms` (
   `aob4` tinyint(1) DEFAULT NULL,
   `aob5` tinyint(1) DEFAULT NULL,
   `aob6` tinyint(1) DEFAULT NULL,
-  `insurance` varchar(50) DEFAULT NULL,
-  `ctt_prov` varchar(50) DEFAULT NULL,
-  `ctt_date` varchar(20) DEFAULT NULL,
+  `insurance` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `ctt_prov` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `ctt_date` varchar(20) CHARACTER SET latin1 DEFAULT NULL,
   `ctt1` tinyint(1) DEFAULT NULL,
-  `pfp_name` varchar(50) DEFAULT NULL,
-  `pfp_rep` varchar(50) DEFAULT NULL,
-  `pfp_rel` varchar(30) DEFAULT NULL,
+  `pfp_name` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `pfp_rep` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `pfp_rel` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -429,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `gaitcalculations` (
   `stance_time` double DEFAULT NULL,
   `time` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=71 ;
 
 -- --------------------------------------------------------
 
@@ -439,11 +439,11 @@ CREATE TABLE IF NOT EXISTS `gaitcalculations` (
 
 CREATE TABLE IF NOT EXISTS `injurytypes` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `name` char(30) NOT NULL,
+  `name` char(30) CHARACTER SET latin1 NOT NULL,
   `category` mediumint(9) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `injurytypes`
@@ -499,10 +499,10 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) DEFAULT NULL,
   `Date` datetime DEFAULT NULL,
-  `Subject` varchar(30) DEFAULT NULL,
-  `Note` varchar(255) DEFAULT NULL,
+  `Subject` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `Note` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `notes`
@@ -525,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `type` tinyint(1) DEFAULT NULL,
   `message` varchar(500) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `notifications`
@@ -545,17 +545,17 @@ INSERT INTO `notifications` (`id`, `doctor_id`, `datetime`, `read`, `type`, `mes
 CREATE TABLE IF NOT EXISTS `patients` (
   `user_id` int(10) unsigned NOT NULL,
   `provider_id` int(10) unsigned NOT NULL,
-  `mrn` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `mrn` varchar(32) COLLATE utf8_bin NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `reg_date` date NOT NULL,
   `weight` smallint(3) unsigned NOT NULL,
   `height` smallint(3) unsigned NOT NULL,
-  `pt` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `dr` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `pt` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `dr` varchar(64) COLLATE utf8_bin NOT NULL,
   `injured_leg` tinyint(1) unsigned NOT NULL,
   `sets` tinyint(10) unsigned NOT NULL,
-  `phone_num` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `phone_num` varchar(10) COLLATE utf8_bin NOT NULL,
   `processed_date` date DEFAULT NULL,
   `form_id` int(10) unsigned NOT NULL DEFAULT '0',
   `extended` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -566,7 +566,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   PRIMARY KEY (`user_id`),
   KEY `doctor_id` (`provider_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `patients`
@@ -599,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `protocols` (
   PRIMARY KEY (`id`),
   KEY `ClientID` (`patient_id`),
   KEY `CExID` (`exercise_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46582 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=46582 ;
 
 --
 -- Dumping data for table `protocols`
@@ -638,16 +638,16 @@ INSERT INTO `protocols` (`id`, `patient_id`, `exercise_id`, `active`, `mandatory
 
 CREATE TABLE IF NOT EXISTS `providers` (
   `user_id` int(11) NOT NULL,
-  `npin` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `business_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `business_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `phone_num` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `cell_num` varchar(9) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `npin` varchar(30) COLLATE utf8_bin NOT NULL,
+  `business_name` varchar(60) COLLATE utf8_bin NOT NULL,
+  `business_address` varchar(255) COLLATE utf8_bin NOT NULL,
+  `phone_num` varchar(10) COLLATE utf8_bin NOT NULL,
+  `cell_num` varchar(9) COLLATE utf8_bin DEFAULT NULL,
   `registration_date` date NOT NULL,
   `processed_date` date DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   KEY `fk_user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `providers`
@@ -677,7 +677,7 @@ CREATE TABLE IF NOT EXISTS `romcalculations` (
   `force3` double DEFAULT NULL,
   `force4` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=734 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=734 ;
 
 -- --------------------------------------------------------
 
@@ -687,13 +687,13 @@ CREATE TABLE IF NOT EXISTS `romcalculations` (
 
 CREATE TABLE IF NOT EXISTS `serial` (
   `serial_number` bigint(12) NOT NULL,
-  `macl` varchar(12) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `macr` varchar(12) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `macl` varchar(12) COLLATE utf8_bin NOT NULL,
+  `macr` varchar(12) COLLATE utf8_bin NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `admin_id` mediumint(9) NOT NULL DEFAULT '0' COMMENT 'id of employee that requested the sn be generated',
   `patient_id` mediumint(9) NOT NULL COMMENT 'patient to which the sn is assigned',
   PRIMARY KEY (`serial_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -716,7 +716,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('c03a6b04f3d5d6649a9e1a4921bdc73d', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389186328, 'a:7:{s:9:"user_data";s:0:"";s:11:"captchaWord";s:8:"rNVLPVkB";s:9:"logged_in";b:1;s:7:"user_id";s:1:"1";s:9:"user_type";s:1:"1";s:10:"first_name";s:7:"Matthew";s:9:"last_name";s:8:"Stephens";}');
+('052d1d2dcc0a2c3fdd7acfed6f6db019', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389197457, 'a:1:{s:9:"user_data";s:0:"";}');
 
 -- --------------------------------------------------------
 
@@ -730,7 +730,7 @@ CREATE TABLE IF NOT EXISTS `standard_emails` (
   `subject` varchar(128) COLLATE utf8_bin NOT NULL,
   `content` text CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -746,7 +746,7 @@ CREATE TABLE IF NOT EXISTS `stepcalculations` (
   `stance_time` double DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=193 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=193 ;
 
 -- --------------------------------------------------------
 
@@ -765,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `debug_password` varchar(12) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users`
