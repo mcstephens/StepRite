@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2014 at 05:12 PM
--- Server version: 5.5.34
--- PHP Version: 5.4.22
+-- Generation Time: Jan 09, 2014 at 02:30 PM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `activities`
 --
 
+DROP TABLE IF EXISTS `activities`;
 CREATE TABLE IF NOT EXISTS `activities` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT 'AI Key',
   `patient_id` mediumint(9) DEFAULT NULL,
@@ -43,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
 -- Table structure for table `admin`
 --
 
+DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -68,6 +70,7 @@ INSERT INTO `admin` (`id`, `username`, `first_name`, `last_name`, `password`, `e
 -- Table structure for table `admin_types`
 --
 
+DROP TABLE IF EXISTS `admin_types`;
 CREATE TABLE IF NOT EXISTS `admin_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) COLLATE utf8_bin NOT NULL,
@@ -87,6 +90,7 @@ INSERT INTO `admin_types` (`id`, `type`) VALUES
 -- Table structure for table `articles`
 --
 
+DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_bin NOT NULL,
@@ -116,6 +120,7 @@ INSERT INTO `articles` (`id`, `name`, `article`, `entry_date`) VALUES
 -- Table structure for table `authlock`
 --
 
+DROP TABLE IF EXISTS `authlock`;
 CREATE TABLE IF NOT EXISTS `authlock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -130,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `authlock` (
 -- Table structure for table `authlock_log`
 --
 
+DROP TABLE IF EXISTS `authlock_log`;
 CREATE TABLE IF NOT EXISTS `authlock_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
@@ -143,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `authlock_log` (
 -- Table structure for table `coefficients`
 --
 
+DROP TABLE IF EXISTS `coefficients`;
 CREATE TABLE IF NOT EXISTS `coefficients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serial_number` int(11) DEFAULT NULL,
@@ -190,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `coefficients` (
 -- Table structure for table `exercises`
 --
 
+DROP TABLE IF EXISTS `exercises`;
 CREATE TABLE IF NOT EXISTS `exercises` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` char(10) COLLATE utf8_bin NOT NULL COMMENT '1 = gait, 2 = force, 3 = rom',
@@ -341,6 +349,7 @@ INSERT INTO `exercises` (`id`, `type`, `description`, `name`, `start_degrees`, `
 -- Table structure for table `exercise_types`
 --
 
+DROP TABLE IF EXISTS `exercise_types`;
 CREATE TABLE IF NOT EXISTS `exercise_types` (
   `id` smallint(2) NOT NULL,
   `name` char(5) COLLATE utf8_bin NOT NULL,
@@ -362,6 +371,7 @@ INSERT INTO `exercise_types` (`id`, `name`) VALUES
 -- Table structure for table `extended_dates`
 --
 
+DROP TABLE IF EXISTS `extended_dates`;
 CREATE TABLE IF NOT EXISTS `extended_dates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) NOT NULL,
@@ -377,6 +387,7 @@ CREATE TABLE IF NOT EXISTS `extended_dates` (
 -- Table structure for table `forcecalculations`
 --
 
+DROP TABLE IF EXISTS `forcecalculations`;
 CREATE TABLE IF NOT EXISTS `forcecalculations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `average` double DEFAULT NULL,
@@ -398,6 +409,7 @@ CREATE TABLE IF NOT EXISTS `forcecalculations` (
 -- Table structure for table `forms`
 --
 
+DROP TABLE IF EXISTS `forms`;
 CREATE TABLE IF NOT EXISTS `forms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `aob1` tinyint(1) DEFAULT NULL,
@@ -422,6 +434,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
 -- Table structure for table `gaitcalculations`
 --
 
+DROP TABLE IF EXISTS `gaitcalculations`;
 CREATE TABLE IF NOT EXISTS `gaitcalculations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stride_dist` double DEFAULT NULL,
@@ -437,6 +450,7 @@ CREATE TABLE IF NOT EXISTS `gaitcalculations` (
 -- Table structure for table `injurytypes`
 --
 
+DROP TABLE IF EXISTS `injurytypes`;
 CREATE TABLE IF NOT EXISTS `injurytypes` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` char(30) CHARACTER SET latin1 NOT NULL,
@@ -495,12 +509,13 @@ INSERT INTO `injurytypes` (`id`, `name`, `category`) VALUES
 -- Table structure for table `notes`
 --
 
+DROP TABLE IF EXISTS `notes`;
 CREATE TABLE IF NOT EXISTS `notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) DEFAULT NULL,
-  `Date` datetime DEFAULT NULL,
-  `Subject` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
-  `Note` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `subject` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
 
@@ -508,8 +523,8 @@ CREATE TABLE IF NOT EXISTS `notes` (
 -- Dumping data for table `notes`
 --
 
-INSERT INTO `notes` (`id`, `patient_id`, `Date`, `Subject`, `Note`) VALUES
-(1, 1, '2012-02-15 00:00:00', 'This is a SOAP Note', 'SOAP Notes are really cool and useful for doctors!  I''m writing this one to test them on our dashboard!');
+INSERT INTO `notes` (`id`, `patient_id`, `date`, `subject`, `note`) VALUES
+(1, 2, '2012-02-15 00:00:00', 'This is a SOAP Note', 'SOAP Notes are really cool and useful for doctors!  I''m writing this one to test them on our dashboard!');
 
 -- --------------------------------------------------------
 
@@ -517,6 +532,7 @@ INSERT INTO `notes` (`id`, `patient_id`, `Date`, `Subject`, `Note`) VALUES
 -- Table structure for table `notifications`
 --
 
+DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE IF NOT EXISTS `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `doctor_id` mediumint(9) DEFAULT NULL,
@@ -542,6 +558,7 @@ INSERT INTO `notifications` (`id`, `doctor_id`, `datetime`, `read`, `type`, `mes
 -- Table structure for table `patients`
 --
 
+DROP TABLE IF EXISTS `patients`;
 CREATE TABLE IF NOT EXISTS `patients` (
   `user_id` int(10) unsigned NOT NULL,
   `provider_id` int(10) unsigned NOT NULL,
@@ -585,6 +602,7 @@ INSERT INTO `patients` (`user_id`, `provider_id`, `mrn`, `start_date`, `end_date
 -- Table structure for table `protocols`
 --
 
+DROP TABLE IF EXISTS `protocols`;
 CREATE TABLE IF NOT EXISTS `protocols` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` mediumint(9) NOT NULL,
@@ -606,29 +624,29 @@ CREATE TABLE IF NOT EXISTS `protocols` (
 --
 
 INSERT INTO `protocols` (`id`, `patient_id`, `exercise_id`, `active`, `mandatory`, `start_date`, `end_date`, `reps`, `hold_time`, `weight`) VALUES
-(1, 62, 27, 1, 0, '2012-05-10', '2014-03-13', 0, 0, 0),
-(2, 62, 2, 1, 0, '2012-05-10', '2014-03-13', 0, 0, 0),
-(6, 62, 25, 1, 0, '2012-05-10', '2013-11-04', 0, 0, 0),
-(7, 62, 24, 0, 0, '2012-05-10', NULL, 0, 0, 0),
-(8, 62, 28, 0, 0, '2012-05-10', NULL, 0, 0, 0),
-(18, 62, 2, 0, 0, '2012-05-10', NULL, 0, 0, 0),
-(31, 63, 2, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(32, 63, 4, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(33, 63, 1, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(34, 64, 26, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(35, 64, 27, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(36, 64, 28, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(37, 64, 29, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(38, 64, 2, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(39, 64, 4, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(40, 64, 1, 1, 0, '2012-05-10', NULL, 0, 0, 0),
-(41, 65, 26, 1, 0, '2012-04-18', NULL, 0, 0, 0),
-(42, 65, 27, 1, 0, '2012-04-18', NULL, 0, 0, 0),
-(43, 65, 28, 1, 0, '2012-04-18', NULL, 0, 0, 0),
-(44, 65, 29, 0, 0, '2012-04-18', NULL, 0, 0, 0),
-(45, 65, 2, 1, 0, '2012-04-18', NULL, 0, 0, 0),
-(46, 65, 4, 1, 0, '2012-04-18', NULL, 0, 0, 0),
-(47, 65, 1, 1, 0, '2012-04-18', NULL, 0, 0, 0);
+(1, 2, 27, 1, 0, '2012-05-10', '2014-03-13', 0, 0, 0),
+(2, 2, 2, 1, 1, '2012-05-10', '2014-03-13', 0, 0, 0),
+(6, 2, 25, 1, 0, '2012-05-10', '2013-11-04', 0, 0, 0),
+(7, 2, 24, 0, 0, '2012-05-10', '2014-03-13', 0, 0, 0),
+(8, 2, 28, 0, 0, '2012-05-10', '2014-03-13', 0, 0, 0),
+(18, 2, 2, 0, 1, '2012-05-10', '2014-05-20', 0, 0, 0),
+(31, 3, 2, 1, 1, '2012-05-10', '2014-05-02', 0, 0, 0),
+(32, 3, 4, 1, 1, '2012-05-10', '2014-05-02', 0, 0, 0),
+(33, 3, 1, 1, 1, '2012-05-10', '2014-05-02', 0, 0, 0),
+(34, 4, 26, 1, 0, '2012-05-10', '2014-03-01', 0, 0, 0),
+(35, 4, 27, 1, 0, '2012-05-10', '2014-03-01', 0, 0, 0),
+(36, 4, 28, 1, 0, '2012-05-10', '2014-03-01', 0, 0, 0),
+(37, 4, 29, 1, 0, '2012-05-10', '2014-03-01', 0, 0, 0),
+(38, 4, 2, 1, 1, '2012-05-10', '2014-03-01', 0, 0, 0),
+(39, 4, 4, 1, 1, '2012-05-10', '2014-03-01', 0, 0, 0),
+(40, 4, 1, 1, 1, '2012-05-10', '2014-03-01', 0, 0, 0),
+(41, 5, 26, 1, 0, '2012-04-18', '2014-03-16', 0, 0, 0),
+(42, 5, 27, 1, 0, '2012-04-18', '2014-03-16', 0, 0, 0),
+(43, 5, 28, 1, 0, '2012-04-18', '2014-03-16', 0, 0, 0),
+(44, 5, 29, 0, 0, '2012-04-18', '2014-03-16', 0, 0, 0),
+(45, 5, 2, 1, 1, '2012-04-18', '2014-03-16', 0, 0, 0),
+(46, 5, 4, 1, 1, '2012-04-18', '2014-03-16', 0, 0, 0),
+(47, 5, 1, 1, 1, '2012-04-18', '2014-03-16', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -636,6 +654,7 @@ INSERT INTO `protocols` (`id`, `patient_id`, `exercise_id`, `active`, `mandatory
 -- Table structure for table `providers`
 --
 
+DROP TABLE IF EXISTS `providers`;
 CREATE TABLE IF NOT EXISTS `providers` (
   `user_id` int(11) NOT NULL,
   `npin` varchar(30) COLLATE utf8_bin NOT NULL,
@@ -662,6 +681,7 @@ INSERT INTO `providers` (`user_id`, `npin`, `business_name`, `business_address`,
 -- Table structure for table `romcalculations`
 --
 
+DROP TABLE IF EXISTS `romcalculations`;
 CREATE TABLE IF NOT EXISTS `romcalculations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `average` double DEFAULT NULL,
@@ -685,6 +705,7 @@ CREATE TABLE IF NOT EXISTS `romcalculations` (
 -- Table structure for table `serial`
 --
 
+DROP TABLE IF EXISTS `serial`;
 CREATE TABLE IF NOT EXISTS `serial` (
   `serial_number` bigint(12) NOT NULL,
   `macl` varchar(12) COLLATE utf8_bin NOT NULL,
@@ -701,6 +722,7 @@ CREATE TABLE IF NOT EXISTS `serial` (
 -- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
   `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `ip_address` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT '0',
@@ -716,7 +738,8 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('052d1d2dcc0a2c3fdd7acfed6f6db019', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389197457, 'a:1:{s:9:"user_data";s:0:"";}');
+('0ccf52a012ede2eecac902ab95ab5d46', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389274180, 'a:9:{s:9:"user_data";s:0:"";s:9:"last_page";s:19:"provider/dashboards";s:9:"logged_in";b:1;s:7:"user_id";s:1:"1";s:9:"user_type";s:1:"1";s:10:"first_name";s:7:"Matthew";s:9:"last_name";s:8:"Stephens";s:10:"patient_id";s:1:"2";s:11:"captchaWord";s:8:"LDuKEuvJ";}'),
+('e46ddcebb50a83f7aa8c2badecd163d0', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389268386, 'a:8:{s:9:"user_data";s:0:"";s:9:"last_page";s:19:"provider/dashboards";s:9:"logged_in";b:1;s:7:"user_id";s:1:"1";s:9:"user_type";s:1:"1";s:10:"first_name";s:7:"Matthew";s:9:"last_name";s:8:"Stephens";s:10:"patient_id";s:1:"3";}');
 
 -- --------------------------------------------------------
 
@@ -724,6 +747,7 @@ INSERT INTO `sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity
 -- Table structure for table `standard_emails`
 --
 
+DROP TABLE IF EXISTS `standard_emails`;
 CREATE TABLE IF NOT EXISTS `standard_emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET latin1 NOT NULL,
@@ -738,6 +762,7 @@ CREATE TABLE IF NOT EXISTS `standard_emails` (
 -- Table structure for table `stepcalculations`
 --
 
+DROP TABLE IF EXISTS `stepcalculations`;
 CREATE TABLE IF NOT EXISTS `stepcalculations` (
   `step_num` int(11) DEFAULT NULL,
   `gait_id` int(11) DEFAULT NULL,
@@ -754,6 +779,7 @@ CREATE TABLE IF NOT EXISTS `stepcalculations` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL,
@@ -785,6 +811,7 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `password`, `email
 -- Table structure for table `user_type`
 --
 
+DROP TABLE IF EXISTS `user_type`;
 CREATE TABLE IF NOT EXISTS `user_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) COLLATE utf8_bin NOT NULL,
