@@ -12,12 +12,17 @@
 class protocols extends StepRite_Controller {
 	function __construct() {
 		parent::__construct();
-		$this->load->model('dashboard_model');
+		$this->load->model('patient');
 		$this->user->provider_logged_in();
 	}
 
 	public function index() {
-		$data = NULL;
+		$data['protocol'] = $this->patient->get_protocol($this->session->userdata('patient_id'));
+		
+		// echo "<pre>";
+		// print_r($data['protocol']);
+		// echo "</pre>";
+		
 		/************************/
 		/*    Load File View    */
 		/************************/

@@ -237,7 +237,7 @@ $config['encryption_key'] = 'nNpgWQR6gMtNb6Cg7M5yuF92FXI2fNaC';
 |
 */
 $config['sess_cookie_name']		= 'steprite_session';
-$config['sess_expiration']		= 600;
+$config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;

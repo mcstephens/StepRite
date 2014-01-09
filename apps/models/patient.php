@@ -128,6 +128,40 @@ class Patient {
 		$this->db->where('id', $this->_StepRite->session->userdata('user_id'));
 		$this->db->update('users', $data);
 	}
+	
+	/***************************************************************************
+	|--------------------------------------------------------------------------
+	| get_protocol
+	|--------------------------------------------------------------------------
+	| @access 	public
+	| @param	int
+	| @return	array | bool
+	***************************************************************************/		
+	public function get_protocol($id) {
+		$query = $this->_StepRite->db->select('protocols.*, exercises.name')->from('protocols')->join('exercises', 'protocols.exercise_id = exercises.id', 'left')->where('patient_id', $id)->get();
+
+		if($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		return false;
+	}
+	
+	/***************************************************************************
+	|--------------------------------------------------------------------------
+	| get_protocol
+	|--------------------------------------------------------------------------
+	| @access 	public
+	| @param	int
+	| @return	array | bool
+	***************************************************************************/		
+	public function get_notes($id) {
+		$query = $this->_StepRite->db->select('*')->from('notes')->where('patient_id', $id)->get();
+
+		if($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		return false;
+	}		
 }
 /* End of file Patient.php */
 /* File location: apps/libraries/Patient.php */

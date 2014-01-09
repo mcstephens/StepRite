@@ -31,6 +31,9 @@ class Dashboards extends StepRite_Controller {
 			$data['patient'] = $this->patient->get($id);
 			$this->session->set_userdata('patient_id', $id);
 		}
+		else {
+			$this->session->set_userdata('patient_id',  $data['patients'][0]['user_id']);
+		}
 		
 		/* Configure the header box with the correct patient information */
 		$data['header_info']  = form_open('provider/dashboards');
@@ -61,7 +64,6 @@ class Dashboards extends StepRite_Controller {
 			$data['header_info'] .= "<div> Height:  <strong>" . $data['patients'][0]['height'] . " inches </strong> </div>";
 			$data['header_info'] .= "<div> Weight:  <strong>" . $data['patients'][0]['weight'] . " pounds </strong> </div>";
 			$data['header_info'] .= "<div> Doctor:  <strong>" . $data['patients'][0]['dr'] . " </strong> </div>";
-	
 		}
 		$data['header_info'] .= "</div></div>";		
 		$data['header_info'] .= form_close();	

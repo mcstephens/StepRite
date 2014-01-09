@@ -11,22 +11,28 @@
 <table class="tables">
 	<tr class="protocol">
 		<th class="protocol">Protocol Name</th>
-		<th class="protocol">Using Crutch</th>
-		<th class="protocol">Weight</th>
-		<th class="protocol">Status</th>
+		<th class="protocol">Mandatory Exercise</th>
+		<th class="protocol">Required Reps</th>
+		<th class="protocol">Start Date</th>
+		<th class="protocol">End Date</th>
 	</tr>
-	<tr class="protocol">
-		<td class="protocol"><?php ?></td>
-		<td class="protocol"><?php ?></td>
-		<td class="protocol"><?php ?></td>
-		<td class="protocol"><?php ?></td>
-	</tr>
+	<?php foreach($protocol as $row) { ?>
+		<?php if($row['active'] == 1) { ?>
+		<tr class="protocol">
+			<td class="protocol"><?php echo $row['name']; ?></td>
+			<td class="protocol"><?php echo ($row['mandatory']) ? "Yes" : "No"; ?>
+			<td class="protocol"><?php echo $row['reps']; ?></td>
+			<td class="protocol"><?php echo $row['start_date']; ?></td>
+			<td class="protocol"><?php echo $row['end_date']; ?></td>
+		</tr>
+		<?php } ?>
+	<?php } ?>
 </table>
 
 <script><!--
 $(document).ready(function() {
 	// Protocol table styling
-	$("tr:even").css( "background-color", "#E9E9E9" );
+	$("tr:odd").css( "background-color", "#E9E9E9" );
 	$("tr").css( "border-top", "1px solid #000000" );
 	$("tr.protocol:last").css( "border-bottom", "1px solid #000000" );
 });
